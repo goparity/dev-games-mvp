@@ -1,3 +1,4 @@
+// [TEMPLATE] Store module example
 export default {
   state: {
     score: 0
