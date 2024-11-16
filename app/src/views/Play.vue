@@ -26,7 +26,8 @@
     import { RouterLink } from 'vue-router'
     import Button from '@/components/Button.vue'
     import { ref, onMounted } from 'vue'
-    import fileContent from '../assets/maps/map.json';
+    import fileContent from '../assets/maps/map.json'
+    import VueCookies from 'vue-cookies'
 
     export default {
         components: {
@@ -52,6 +53,11 @@
 
             const finish = () => {
                 store.dispatch('updateScore', score.value)
+                VueCookies.set('last-score', score.value, '1y')
+                
+                let bestScore = VueCookies.get('best-score')
+                if(score.value > bestScore)
+                    VueCookies.set('best-score', score.value, '1y')
             }
 
             return {

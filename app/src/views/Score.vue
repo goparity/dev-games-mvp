@@ -2,10 +2,16 @@
     <div class="bg-gray-900 min-h-screen flex flex-col items-center justify-between text-slate-300 py-6">
         <div class="text-center text-xl">
             <div>
-                Your score:
+                Your last score:
             </div>
             <div>
-                {{ score }}
+                {{ lastScore }}
+            </div>
+            <div class="mt-4">
+                Your best score:
+            </div>
+            <div>
+                {{ bestScore }}
             </div>
         </div>
         <div>
@@ -24,6 +30,8 @@
     import { computed } from 'vue'
     import { useStore } from 'vuex'
     import Button from '@/components/Button.vue'
+    import VueCookies from 'vue-cookies'
+
     export default {
         components: {
             Button,
@@ -31,12 +39,16 @@
         },
         setup() {
             const store = useStore()
-            const score = computed(() => {
-                return store.state.score.score
+            const lastScore = computed(() => {
+                return VueCookies.get('last-score')
+            })
+            const bestScore = computed(() => {
+                return VueCookies.get('best-score')
             })
 
             return {
-                score
+                lastScore,
+                bestScore
             }
         }
     }
